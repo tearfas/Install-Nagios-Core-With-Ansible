@@ -1,0 +1,34 @@
+define service {
+       hostgroup_name	linux
+       use		ssh_swap_service_template
+       register		1
+       notifications_enabled 0
+}
+
+define service {
+       hostgroup_name	linux
+       use		ssh_disk_service_template
+       register		1
+}
+
+define service {
+       hostgroup_name	linux
+       use		ssh_load_service_template
+       register		1
+}
+
+define service {
+       hostgroup_name	linux
+       use		ssh_memory_service_template
+       register		1
+}
+
+define service {
+       hostgroup_name   linux
+       use              ssh_check_user_template
+       register         1
+}
+
+
+
+

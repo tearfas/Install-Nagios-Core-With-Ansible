@@ -1,0 +1,12 @@
+### ansible-playbook playbook.yml -u C5343606 -kK
+
+- hosts: ngserver
+  become: yes
+  vars: 
+    - ng_ver: 4.4.9
+    - plgin_ver: 2.3.3
+    - hostname: localhost
+    - host_ip: 10.0.0.4
+  roles: 
+    - nagios_install
+

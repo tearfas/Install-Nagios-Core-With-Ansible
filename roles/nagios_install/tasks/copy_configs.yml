@@ -1,0 +1,60 @@
+---
+  - name: create config dir
+    file:
+      path: "{{ config_dest }}"
+      state: directory
+      owner: nagios
+      group: nagios
+      mode: 0755 
+ 
+  - name: create HOSTS and SERVICES directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      owner: nagios
+      group: nagios
+      mode: 0755
+    loop:
+      - "{{ config_dest }}/HOSTS"
+      - "{{ config_dest }}/SERVICES"
+
+  - name: Copy Nagios Config
+    copy: 
+      src: nagios.cfg
+      dest: /etc/nagios/nagios.cfg
+      owner: nagios
+      group: nagios
+    notify:
+      - verify config
+
+  - name: copy nagios configs
+    copy:
+      src: "{{ item }}"
+      dest: "{{ config_dest }}"
+      owner: nagios
+      group: nagios
+      mode: 0755
+    loop: "{{ files }}"
+    notify:
+       - verify config
+
+  - name: copy host files
+    template:
+      src: hosts.j2
+      dest: "{{ config_dest }}/HOSTS"
+      owner: nagios
+      group: nagios
+      mode: 0755
+    notify:
+       - verify config
+
+  - name: copy services files
+    template:
+      src: services.j2
+      dest: "{{ config_dest }}/SERVICES"
+      owner: nagios
+      group: nagios
+      mode: 0755
+    notify:
+       - verify config
+

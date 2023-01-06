@@ -1,0 +1,48 @@
+define host {
+       use              prod_host_template 
+       register         1
+       host_name        "{{ hostname }}"
+       alias            Ansible Server
+       display_name     Ansible Server
+       address          "{{ host_ip }}"
+       check_command    check_lin_host_alive
+}
+
+
+define service {
+       use              ping_service_template
+       register         1
+       host_name        "{{ hostname }}"
+}
+
+define service {
+       use              local_disk_service_template
+       register         1
+       host_name        "{{ hostname }}"
+}
+
+#define service {
+#       use             local_mcafee_service_template
+#       register                1
+#       host_name       "{{ hostname }}"
+#}
+
+
+define service {
+       use              local_swap_service_template
+       register         1
+       host_name        "{{ hostname }}"
+}
+
+define service {
+       use              local_load_service_template
+       register         1
+       host_name        "{{ hostname }}"
+}
+
+define service {
+       use              local_memory_service_template
+       register         1
+       host_name        "{{ hostname }}"
+}
+

@@ -1,0 +1,59 @@
+---
+# vars file for nagios_install
+pkges:
+  - httpd
+  - httpd-tools
+  - php-mysqlnd
+  - php-fpm
+  - gcc
+  - glibc
+  - glibc-common
+  - gd
+  - gd-devel
+  - perl
+  - postfix
+  - php
+  - openssl-devel
+  - "@Development Tools"
+  - make 
+  - gettext
+  - automake
+  - autoconf
+  - net-snmp
+  - net-snmp-utils
+
+svcs:
+  - httpd
+
+ng_cmds:
+  #- ./configure --with-command-group=nagcmd
+  - ./configure
+  - make all
+  - make install
+  - make install-daemoninit
+  - make install-init
+  - make install-commandmode
+  - make install-config
+  - make install-webconf
+
+ngplgins_cmds:
+  #- ./configure --with-nagios-user=nagios --with-nagios-group=nagios
+  - ./configure
+  - make
+  - make install
+
+admin_pass: test
+
+config_dest: /etc/nagios/NS2
+
+files:
+  - contacts.cfg
+  #- notifications.cfg
+  - commands.cfg
+  - contacts.cfg
+  - localhost.cfg
+  - printer.cfg
+  - switch.cfg
+  - templates.cfg
+  - timeperiods.cfg
+  - windows.cfg

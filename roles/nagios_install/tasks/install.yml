@@ -1,0 +1,80 @@
+---
+   # - name: Install Epel Release 
+   #   yum:
+   #     name: epel-release
+   #     state: latest 
+
+    - name: Install required packages
+      yum:
+        name: "{{ pkges }}"
+        state: latest 
+
+    - name: Create Nagios user and group
+      user:
+        name: "{{ item }}"
+        system: yes
+        shell: /sbin/nologin
+      loop:
+        - nagios
+        - nagcmd
+
+    #- name: create nagios group
+    #  group:
+    #    name: nagcmd
+    #    state: present
+
+    - name: Add nagios and apache users nagios group
+      user: 
+        name: "{{ item }}"
+        groups: nagcmd
+        append: yes
+      loop:
+        - nagios
+        - apache
+      
+
+    - name: create nagios install dir
+      file:
+        path: /tmp/ng_install
+        state: directory
+
+    - name: extract tarballs
+      unarchive: 
+        src: "{{ item }}"
+        dest: /tmp/ng_install
+      loop: 
+        - roles/nagios_install/files/nagios-{{ ng_ver }}.tar.gz
+        - roles/nagios_install/files/nagios-plugins-{{ plgin_ver }}.tar.gz
+
+    #- name: compile Nagios
+    #  shell:
+    #    cmd: "{{ item }}"
+    #    chdir: /tmp/ng_install/nagios-{{ ng_ver }}
+    #  loop: "{{ ng_cmds }}"
+
+
+    - name: Compile and install Nagios Core
+      shell: |
+        cd /tmp/ng_install/nagios-{{ ng_ver }}
+        ./configure --with-nagios-group=nagios --with-command-group=nagios
+         make all
+        make install
+        make install-init
+        make install-config
+        make install-commandmode
+
+    - name: create nagiosadmin account
+      shell: 
+        cmd: htpasswd -cb /usr/local/nagios/etc/htpasswd.users nagiosadmin {{ admin_pass }} 
+
+    - name: Restart apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Compile Nagios plugins
+      shell:
+        cmd: "{{ item }}"
+        chdir: /tmp/ng_install/nagios-plugins-{{ plgin_ver }}
+      loop: "{{ ngplgins_cmds }}"

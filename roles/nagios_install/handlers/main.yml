@@ -1,0 +1,18 @@
+---
+# handlers file for nagios_install
+- name: verify config
+  #shell: nagios -v /etc/nagios/nagios.cfg
+  shell: /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+  notify: restart nagios
+ 
+- name: restart nagios
+  service:
+    name: nagios
+    state: restarted
+    enabled: yes
+
+- name: start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
