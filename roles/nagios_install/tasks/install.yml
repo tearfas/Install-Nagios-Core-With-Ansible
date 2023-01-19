@@ -1,9 +1,4 @@
 ---
-   # - name: Install Epel Release 
-   #   yum:
-   #     name: epel-release
-   #     state: latest 
-
     - name: Install required packages
       yum:
         name: "{{ pkges }}"
@@ -18,10 +13,6 @@
         - nagios
         - nagcmd
 
-    #- name: create nagios group
-    #  group:
-    #    name: nagcmd
-    #    state: present
 
     - name: Add nagios and apache users nagios group
       user: 
@@ -46,22 +37,18 @@
         - roles/nagios_install/files/nagios-{{ ng_ver }}.tar.gz
         - roles/nagios_install/files/nagios-plugins-{{ plgin_ver }}.tar.gz
 
-    #- name: compile Nagios
-    #  shell:
-    #    cmd: "{{ item }}"
-    #    chdir: /tmp/ng_install/nagios-{{ ng_ver }}
-    #  loop: "{{ ng_cmds }}"
-
 
     - name: Compile and install Nagios Core
       shell: |
         cd /tmp/ng_install/nagios-{{ ng_ver }}
         ./configure --with-nagios-group=nagios --with-command-group=nagios
-         make all
+        make all
         make install
         make install-init
         make install-config
         make install-commandmode
+        make install-webconf
+
 
     - name: create nagiosadmin account
       shell: 

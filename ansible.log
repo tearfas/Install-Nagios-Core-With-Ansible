@@ -855,3 +855,60 @@ The offending line appears to be:
 2023-01-05 20:33:56,283 p=180295 u=C5343605 n=ansible | changed: [localhost]
 2023-01-05 20:33:56,298 p=180295 u=C5343605 n=ansible | PLAY RECAP ****************************************************************************************************************************
 2023-01-05 20:33:56,299 p=180295 u=C5343605 n=ansible | localhost                  : ok=20   changed=15   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-01-19 12:26:06,181 p=3028 u=admin n=ansible | PLAY [ngserver] ****************************************************************
+2023-01-19 12:26:06,222 p=3028 u=admin n=ansible | TASK [Gathering Facts] *********************************************************
+2023-01-19 12:26:09,175 p=3028 u=admin n=ansible | ok: [localhost]
+2023-01-19 12:26:09,202 p=3028 u=admin n=ansible | TASK [nagios_install : Install firewalld] **************************************
+2023-01-19 12:26:11,825 p=3028 u=admin n=ansible | ok: [localhost]
+2023-01-19 12:26:11,840 p=3028 u=admin n=ansible | TASK [nagios_install : enable 80] **********************************************
+2023-01-19 12:26:12,989 p=3028 u=admin n=ansible | ok: [localhost]
+2023-01-19 12:26:13,004 p=3028 u=admin n=ansible | TASK [nagios_install : Install required packages] ******************************
+2023-01-19 12:26:18,414 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:26:18,429 p=3028 u=admin n=ansible | TASK [nagios_install : Create Nagios user and group] ***************************
+2023-01-19 12:26:19,472 p=3028 u=admin n=ansible | changed: [localhost] => (item=nagios)
+2023-01-19 12:26:20,214 p=3028 u=admin n=ansible | ok: [localhost] => (item=nagcmd)
+2023-01-19 12:26:20,229 p=3028 u=admin n=ansible | TASK [nagios_install : Add nagios and apache users nagios group] ***************
+2023-01-19 12:26:21,016 p=3028 u=admin n=ansible | ok: [localhost] => (item=nagios)
+2023-01-19 12:26:21,778 p=3028 u=admin n=ansible | ok: [localhost] => (item=apache)
+2023-01-19 12:26:21,794 p=3028 u=admin n=ansible | TASK [nagios_install : create nagios install dir] ******************************
+2023-01-19 12:26:22,700 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:26:22,716 p=3028 u=admin n=ansible | TASK [nagios_install : extract tarballs] ***************************************
+2023-01-19 12:26:26,254 p=3028 u=admin n=ansible | changed: [localhost] => (item=roles/nagios_install/files/nagios-4.4.9.tar.gz)
+2023-01-19 12:26:28,492 p=3028 u=admin n=ansible | changed: [localhost] => (item=roles/nagios_install/files/nagios-plugins-2.3.3.tar.gz)
+2023-01-19 12:26:28,508 p=3028 u=admin n=ansible | TASK [nagios_install : Compile and install Nagios Core] ************************
+2023-01-19 12:27:32,736 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:27:32,750 p=3028 u=admin n=ansible | TASK [nagios_install : create nagiosadmin account] *****************************
+2023-01-19 12:27:33,492 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:27:33,509 p=3028 u=admin n=ansible | TASK [nagios_install : Restart apache] *****************************************
+2023-01-19 12:27:35,197 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:27:35,212 p=3028 u=admin n=ansible | TASK [nagios_install : Compile Nagios plugins] *********************************
+2023-01-19 12:28:32,678 p=3028 u=admin n=ansible | changed: [localhost] => (item=./configure)
+2023-01-19 12:29:01,362 p=3028 u=admin n=ansible | changed: [localhost] => (item=make)
+2023-01-19 12:29:03,370 p=3028 u=admin n=ansible | changed: [localhost] => (item=make install)
+2023-01-19 12:29:03,404 p=3028 u=admin n=ansible | TASK [nagios_install : create config dir] **************************************
+2023-01-19 12:29:04,162 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:04,177 p=3028 u=admin n=ansible | TASK [nagios_install : create HOSTS and SERVICES directories] ******************
+2023-01-19 12:29:04,918 p=3028 u=admin n=ansible | changed: [localhost] => (item=/etc/nagios/NS2/HOSTS)
+2023-01-19 12:29:05,656 p=3028 u=admin n=ansible | changed: [localhost] => (item=/etc/nagios/NS2/SERVICES)
+2023-01-19 12:29:05,687 p=3028 u=admin n=ansible | TASK [nagios_install : Copy Nagios Config] *************************************
+2023-01-19 12:29:07,203 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:07,218 p=3028 u=admin n=ansible | TASK [nagios_install : copy nagios configs] ************************************
+2023-01-19 12:29:08,998 p=3028 u=admin n=ansible | changed: [localhost] => (item=contacts.cfg)
+2023-01-19 12:29:10,742 p=3028 u=admin n=ansible | changed: [localhost] => (item=commands.cfg)
+2023-01-19 12:29:12,404 p=3028 u=admin n=ansible | ok: [localhost] => (item=contacts.cfg)
+2023-01-19 12:29:14,169 p=3028 u=admin n=ansible | changed: [localhost] => (item=localhost.cfg)
+2023-01-19 12:29:15,941 p=3028 u=admin n=ansible | changed: [localhost] => (item=printer.cfg)
+2023-01-19 12:29:17,682 p=3028 u=admin n=ansible | changed: [localhost] => (item=switch.cfg)
+2023-01-19 12:29:19,433 p=3028 u=admin n=ansible | changed: [localhost] => (item=templates.cfg)
+2023-01-19 12:29:21,182 p=3028 u=admin n=ansible | changed: [localhost] => (item=timeperiods.cfg)
+2023-01-19 12:29:22,938 p=3028 u=admin n=ansible | changed: [localhost] => (item=windows.cfg)
+2023-01-19 12:29:22,955 p=3028 u=admin n=ansible | TASK [nagios_install : copy host files] ****************************************
+2023-01-19 12:29:24,741 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:24,755 p=3028 u=admin n=ansible | TASK [nagios_install : copy services files] ************************************
+2023-01-19 12:29:26,568 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:26,595 p=3028 u=admin n=ansible | RUNNING HANDLER [nagios_install : verify config] *******************************
+2023-01-19 12:29:27,333 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:27,334 p=3028 u=admin n=ansible | RUNNING HANDLER [nagios_install : restart nagios] ******************************
+2023-01-19 12:29:28,634 p=3028 u=admin n=ansible | changed: [localhost]
+2023-01-19 12:29:28,654 p=3028 u=admin n=ansible | PLAY RECAP *********************************************************************
+2023-01-19 12:29:28,655 p=3028 u=admin n=ansible | localhost                  : ok=20   changed=16   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
